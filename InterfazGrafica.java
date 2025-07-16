@@ -27,6 +27,8 @@ public class InterfazGrafica extends JFrame {
 
         JButton btnAgregar = new JButton("Agregar Cliente");
         JButton btnAtender = new JButton("Atender Cliente");
+        JButton btnImportar = new JButton("Importar Clientes");
+
         panelIngreso.add(btnAgregar);
         panelIngreso.add(btnAtender);
 
@@ -41,6 +43,7 @@ public class InterfazGrafica extends JFrame {
         JPanel panelInferior = new JPanel();
         labelAtendidos = new JLabel("Clientes atendidos: 0");
         panelInferior.add(labelAtendidos);
+        panelInferior.add(btnImportar);
         add(panelInferior, BorderLayout.SOUTH);
 
         // Acciones de botones
@@ -71,7 +74,18 @@ public class InterfazGrafica extends JFrame {
         });
 
         setVisible(true);
+        
+        btnImportar.addActionListener(e->{
+            if(cola.estaVacia()){ 
+                JOptionPane.showMessageDialog(this, "La cola está vacía.");                
+            }else{
+                JOptionPane.showMessageDialog(this,cola.importarCola());
+            }
+        });
     }
+
+
+
 
     private void actualizarVista() {
         areaCola.setText("");

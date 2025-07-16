@@ -44,9 +44,9 @@ public class ColaClientes {
         return cola.isEmpty();
     }
 
-    public void importarCola() {
+    public String importarCola() {
 
-
+        String respuesta = "";
         String rutaDescargas = System.getProperty("user.home") + File.separator + "Desktop";
         File archivo = new File(rutaDescargas,"clientes.txt");
 
@@ -56,11 +56,14 @@ public class ColaClientes {
             editorDeArchivo.write(cliente.toString());
             editorDeArchivo.newLine();
             }
-            System.out.println("Archivo guardado en: " + archivo.getAbsolutePath());
+            respuesta = "Archivo guardado en: " + archivo.getAbsolutePath();
+             
 
         } catch (IOException e) {
             System.err.println("Error!! \n No se pudo realizar la importacion de los datos");
+            respuesta = "Error!! \n No se pudo realizar la importacion de los datos";
         }
+        return respuesta;  
     }
 }
  
