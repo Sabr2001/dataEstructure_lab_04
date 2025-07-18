@@ -7,13 +7,13 @@ public class Main {
         int opcion;
 
         do {
-            System.out.println("\n--- Menu ---");
+            System.out.println("\n--- Servicio ---");
             System.out.println("1. Agregar cliente");
             System.out.println("2. Atender cliente");
             System.out.println("3. Ver cola");
             System.out.println("4. Ver total de clientes atendidos");
-            System.out.println("0. Salir");
-            System.out.print("Opción: ");
+            System.out.println("5. Opcion");
+            System.out.print("0. Salir: ");
             opcion = sc.nextInt();
             sc.nextLine();
 

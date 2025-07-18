@@ -33,7 +33,11 @@ public class InterfazGrafica extends JFrame {
         panelIngreso.add(buscarField);
         JButton btnBuscar = new JButton("Buscar Cliente");
         panelIngreso.add(btnBuscar);
-
+        panelIngreso.add(btnBuscar);
+       // Botón de importar servicios 
+        JButton btnImportarServicios = new JButton("Importar Servicios");
+        panelIngreso.add(btnImportarServicios);
+        add(panelIngreso, BorderLayout.NORTH);
         add(panelIngreso, BorderLayout.NORTH);
 
         // Panel central y la cola y el Historial
