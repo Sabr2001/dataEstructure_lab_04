@@ -80,5 +80,20 @@ public class ColaClientes {
         return listaPorTipo;
 >>>>>>> Stashed changes
     }
+
+    public ArrayList<String> dividirPorTipo() {
+        Map <String, List<String>> listaPorTipo = new HashMap<>();
+            for (Cliente cliente : cola) {
+                String tipo = cliente.getServicio();
+                String clienteData = cliente.getCedula() + cliente.getNombre();
+
+                System.out.println("[DEBUG] Cliente: " + cliente.getServicio());
+                
+                listaPorTipo.putIfAbsent(tipo, new ArrayList<>());
+
+                listaPorTipo.get(tipo).add(clienteData);
+            }
+            return listaPorTipo;
+    }
 }
  
