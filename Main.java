@@ -61,6 +61,7 @@ public static void main(String[] args) {
                         System.out.println("La cola está vacía."); 
                     }else{
                         cola.dividirPorTipo();
+                        cola.mostrarClientesPorTipo();
                     }
                     break;
                 case 0:

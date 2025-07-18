@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 
 public class InterfazGrafica extends JFrame {
@@ -34,10 +36,20 @@ public class InterfazGrafica extends JFrame {
 
         add(panelIngreso, BorderLayout.NORTH);
 
-        // Panel central con el área de cola
+        // Panel contenedor central que incluye el botón y el área de texto
+        JPanel panelCentro = new JPanel(new BorderLayout());
+
+        // Botón categorizar en la parte superior del centro
+        JButton btnCategorizar = new JButton("Ordenar Cola por Tipo");
+        panelCentro.add(btnCategorizar, BorderLayout.NORTH);
+
+        // Área de texto con scroll en el centro del panel
         areaCola = new JTextArea(15, 50);
         areaCola.setEditable(false);
-        add(new JScrollPane(areaCola), BorderLayout.CENTER);
+        panelCentro.add(new JScrollPane(areaCola), BorderLayout.CENTER);
+
+        // Finalmente, agregamos TODO el panel al centro del frame
+        add(panelCentro, BorderLayout.CENTER);
 
         // Panel inferior con contador
         JPanel panelInferior = new JPanel();
@@ -82,10 +94,32 @@ public class InterfazGrafica extends JFrame {
                 JOptionPane.showMessageDialog(this,cola.importarCola());
             }
         });
+
+        btnCategorizar.addActionListener(e->{
+            if(cola.estaVacia()){ 
+                JOptionPane.showMessageDialog(this, "La cola está vacía.");                
+            }else{
+                mostrarClientesPorTipoInterface();
+            }
+        });
     }
 
+    private void mostrarClientesPorTipoInterface() {
+        areaCola.setText("");
 
+        Map<String, List<String>> agrupados = cola.dividirPorTipo();
 
+        for (Map.Entry<String,List<String>> fila : agrupados.entrySet()){
+           areaCola.append("Tipo de servicio"+ fila.getKey());
+
+            for (String valor : fila.getValue()) {
+                areaCola.append(" - "+ valor);
+            }
+            areaCola.append("\n");
+        }
+        
+
+    }
 
     private void actualizarVista() {
         areaCola.setText("");
@@ -98,4 +132,4 @@ public class InterfazGrafica extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new InterfazGrafica());
     }
-}
+}       

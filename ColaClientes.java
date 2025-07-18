@@ -2,12 +2,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 
 public class ColaClientes {
@@ -67,33 +67,32 @@ public class ColaClientes {
             respuesta = "Error!! \n No se pudo realizar la importacion de los datos";
         }
         return respuesta;  
-<<<<<<< Updated upstream
-=======
     }
 
-    public ArrayList<String> dividirPorTipo() {
-        Map <String, List<String>> listaPorTipo = new HasMap<>();
-            for (Cliente cliente : cola) {
-                System.out.println("[DEBUG] Cliente: " + cliente.getServicio());
-                listaPorTipo.add(cliente.toString());
-            }
-        return listaPorTipo;
->>>>>>> Stashed changes
-    }
-
-    public ArrayList<String> dividirPorTipo() {
+    public Map <String, List<String>>  dividirPorTipo() {
         Map <String, List<String>> listaPorTipo = new HashMap<>();
             for (Cliente cliente : cola) {
                 String tipo = cliente.getServicio();
-                String clienteData = cliente.getCedula() + cliente.getNombre();
-
-                System.out.println("[DEBUG] Cliente: " + cliente.getServicio());
+                String clienteData = cliente.getCedula() +" | "+ cliente.getNombre();
                 
                 listaPorTipo.putIfAbsent(tipo, new ArrayList<>());
-
                 listaPorTipo.get(tipo).add(clienteData);
             }
             return listaPorTipo;
     }
+
+    public void mostrarClientesPorTipo(){
+        Map<String, List<String>> agrupados = dividirPorTipo();
+
+        for (Map.Entry<String,List<String>> fila : agrupados.entrySet()){
+            System.out.println("Tipo de servicio"+ fila.getKey());
+
+            for (String valor : fila.getValue()) {
+                System.out.println(" - "+ valor);
+            }
+            System.out.println();
+        }
+    }
+
 }
  
