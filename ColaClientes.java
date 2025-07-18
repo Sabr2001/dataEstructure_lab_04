@@ -1,69 +1,73 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
+import java.util.*;
 
 public class ColaClientes {
-    private Queue<Cliente> cola;
-    private int clientesAtendidos;
-
-    public ColaClientes() {
-        cola = new LinkedList<>(); //Crea la cola del cliente como lista enlazada
-        clientesAtendidos = 0;
-    }
+    private Queue<Cliente> cola = new LinkedList<>();
+    private List<Cliente> historial = new ArrayList<>();
+    private List<Integer> tiemposEspera = new ArrayList<>();
+    private Random random = new Random();
+    private int ultimoTiempo = 0;
 
     public void encolar(Cliente c) {
-        cola.add(c); //añade un cliente
+        cola.offer(c);
     }
 
-    public Cliente atender() {
-        if (!cola.isEmpty()) {
-            clientesAtendidos++; //suma en el contador y el cliente atendido.
-            return cola.poll(); //vacia la cola
+    public Cliente atenderCliente() {
+        Cliente cliente = cola.poll();
+        if (cliente != null) {
+            historial.add(cliente);
+            ultimoTiempo = random.nextInt(11) + 5; // entre 5 y 15 min
+            tiemposEspera.add(ultimoTiempo);
         }
-        return null; // si esta vacia retorna al null
+        return cliente;
     }
 
-    public ArrayList<String> obtenerColaComoTexto() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (Cliente cliente : cola) {
-            lista.add(cliente.toString());
-        }
-        return lista;
+    public int getUtimoTiempo() {
+        return ultimoTiempo;
     }
 
     public int getClientesAtendidos() {
-        return clientesAtendidos;
+        return historial.size();
+    }
+
+    public List<String> obtenerClientesEnColaComoTexto() {
+        List<String> resultado = new ArrayList<>();
+        for (Cliente c : cola) {
+            resultado.add(c.toString());
+        }
+        return resultado;
+    }
+
+    public List<String> obtenerHistorialComoTexto() {
+        List<String> resultado = new ArrayList<>();
+        for (Cliente c : historial) {
+            resultado.add(c.toString());
+        }
+        return resultado;
+    }
+
+    public boolean buscarCliente(String criterio) {
+        for (Cliente c : cola) {
+            if (c.getNombre().equalsIgnoreCase(criterio) || c.getCedula().equals(criterio)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double mostrarPromedioEspera() {
+        if (tiemposEspera.isEmpty()) return 0;
+        int suma = 0;
+        for (int t : tiemposEspera) suma += t;
+        return (double) suma / tiemposEspera.size();
     }
 
     public boolean estaVacia() {
-        return cola.isEmpty();
+        
+        throw new UnsupportedOperationException("Unimplemented method 'estaVacia'");
     }
 
-    public String importarCola() {
-
-        String respuesta = "";
-        String rutaDescargas = System.getProperty("user.home") + File.separator + "Desktop";
-        File archivo = new File(rutaDescargas,"clientes.txt");
-
-        try(BufferedWriter editorDeArchivo = new BufferedWriter(new FileWriter(archivo))) {
-            for (Cliente cliente : cola) {
-
-            editorDeArchivo.write(cliente.toString());
-            editorDeArchivo.newLine();
-            }
-            respuesta = "Archivo guardado en: " + archivo.getAbsolutePath();
-             
-
-        } catch (IOException e) {
-            System.err.println("Error!! \n No se pudo realizar la importacion de los datos");
-            respuesta = "Error!! \n No se pudo realizar la importacion de los datos";
-        }
-        return respuesta;  
+    public String[] obtenerClientesEnCola() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'obtenerClientesEnCola'");
     }
 }
- 

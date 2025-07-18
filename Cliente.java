@@ -1,13 +1,10 @@
-
 public class Cliente {
     private String nombre;
     private String cedula;
-    private String servicio;
 
-    public Cliente(String nombre, String cedula, String servicio) {
+    public Cliente(String nombre, String cedula) {
         this.nombre = nombre;
         this.cedula = cedula;
-        this.servicio = servicio;
     }
 
     public String getNombre() {
@@ -18,12 +15,8 @@ public class Cliente {
         return cedula;
     }
 
-    public String getServicio() {
-        return servicio;
-    }
-
     @Override
     public String toString() {
-        return nombre + " | Cédula: " + cedula + " | Servicio: " + servicio;
+        return nombre + " (Cedula: " + cedula + ")";
     }
 }
