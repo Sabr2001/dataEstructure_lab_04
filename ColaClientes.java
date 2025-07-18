@@ -2,9 +2,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Map;
+import java.util.HashMap;
 
 
 public class ColaClientes {
@@ -29,19 +32,19 @@ public class ColaClientes {
     }
 
     public ArrayList<String> obtenerColaComoTexto() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (Cliente cliente : cola) {
-            lista.add(cliente.toString());
+        ArrayList<String> lista = new ArrayList<>(); //Instanciamos una  nueva lista
+        for (Cliente cliente : cola) {              //Recorremos la lista que almacena los datos
+            lista.add(cliente.toString());         //cada dato recorrido se guarda como un String
         }
-        return lista;
+        return lista;                           //Devolvemos la lista que contiene los datos formateado
     }
 
     public int getClientesAtendidos() {
-        return clientesAtendidos;
+        return clientesAtendidos;  //Obtenemos la cantidad de clientes antendidos
     }
 
     public boolean estaVacia() {
-        return cola.isEmpty();
+        return cola.isEmpty();  //validamos si la cola esta vacia
     }
 
     public String importarCola() {
@@ -64,6 +67,18 @@ public class ColaClientes {
             respuesta = "Error!! \n No se pudo realizar la importacion de los datos";
         }
         return respuesta;  
+<<<<<<< Updated upstream
+=======
+    }
+
+    public ArrayList<String> dividirPorTipo() {
+        Map <String, List<String>> listaPorTipo = new HasMap<>();
+            for (Cliente cliente : cola) {
+                System.out.println("[DEBUG] Cliente: " + cliente.getServicio());
+                listaPorTipo.add(cliente.toString());
+            }
+        return listaPorTipo;
+>>>>>>> Stashed changes
     }
 }
  

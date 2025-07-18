@@ -13,6 +13,8 @@ public static void main(String[] args) {
             System.out.println("3. Ver cola");
             System.out.println("4. Ver total de clientes atendidos");
             System.out.println("5. Importar Cola");
+            System.out.println("6. Categorizar Cola");
+
             System.out.println("0. Salir");
             System.out.print("Opción: ");
             opcion = sc.nextInt();
@@ -54,6 +56,13 @@ public static void main(String[] args) {
                     }else{
                         cola.importarCola();
                     }
+                case 6:
+                    if(cola.estaVacia()){   
+                        System.out.println("La cola está vacía."); 
+                    }else{
+                        cola.dividirPorTipo();
+                    }
+                    break;
                 case 0:
                     System.out.println("¡Hasta luego!");
                     break;
