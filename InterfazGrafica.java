@@ -6,14 +6,15 @@ public class InterfazGrafica extends JFrame {
     private JTextField nombreField, cedulaField, buscarField;
     private JTextArea areaCola, areaHistorial;
     private JLabel labelAtendidos;
+    private String servicio;
 
-    public InterfazGrafica() {
+    public InterfazGrafica(Container panelCentro) {
         setTitle("Atención al Cliente");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLayout(new BorderLayout());
 
-        // Panel superior
+        
         JPanel panelIngreso = new JPanel(new GridLayout(5, 2, 5, 5));
         nombreField = new JTextField();
         cedulaField = new JTextField();
@@ -28,20 +29,16 @@ public class InterfazGrafica extends JFrame {
         JButton btnAtender = new JButton("Atender Cliente");
         panelIngreso.add(btnAgregar);
         panelIngreso.add(btnAtender);
-
         panelIngreso.add(new JLabel("Buscar Cliente (nombre o cédula):"));
         panelIngreso.add(buscarField);
         JButton btnBuscar = new JButton("Buscar Cliente");
         panelIngreso.add(btnBuscar);
-        panelIngreso.add(btnBuscar);
-       // Botón de importar servicios 
-        JButton btnImportarServicios = new JButton("Importar Servicios");
-        panelIngreso.add(btnImportarServicios);
-        add(panelIngreso, BorderLayout.NORTH);
-        add(panelIngreso, BorderLayout.NORTH);
 
-        // Panel central y la cola y el Historial
-        JPanel panelCentro = new JPanel(new GridLayout(1, 2));
+        
+        JButton btnImportar = new JButton("Importar Servicio");
+        panelIngreso.add(btnImportar);
+
+        add(panelIngreso, BorderLayout.NORTH); 
 
         areaCola = new JTextArea();
         areaCola.setEditable(false);
@@ -53,7 +50,7 @@ public class InterfazGrafica extends JFrame {
 
         add(panelCentro, BorderLayout.CENTER);
 
-        // Panel inferior
+        
         JPanel panelInferior = new JPanel(new GridLayout(1, 2));
         labelAtendidos = new JLabel("Clientes atendidos: 0");
         JButton btnPromedio = new JButton("Ver Promedio Espera");
@@ -63,12 +60,12 @@ public class InterfazGrafica extends JFrame {
 
         add(panelInferior, BorderLayout.SOUTH);
 
-        // Acción para agregar cliente
+        
         btnAgregar.addActionListener(e -> {
             String nombre = nombreField.getText().trim();
             String cedula = cedulaField.getText().trim();
             if (!nombre.isEmpty() && !cedula.isEmpty()) {
-                Cliente c = new Cliente(nombre, cedula);
+            Cliente c = new Cliente(nombre, cedula, servicio);
                 cola.encolar(c);
                 actualizarVista();
                 nombreField.setText("");
@@ -78,7 +75,7 @@ public class InterfazGrafica extends JFrame {
             }
         });
 
-        // Acción para atender cliente
+        
         btnAtender.addActionListener(e -> {
             Cliente atendido = cola.atenderCliente();
             if (atendido != null) {
@@ -90,13 +87,13 @@ public class InterfazGrafica extends JFrame {
             actualizarVista();
         });
 
-        // Acción para ver el promedio
+        
         btnPromedio.addActionListener(e -> {
             double promedio = cola.mostrarPromedioEspera();
             JOptionPane.showMessageDialog(this, "Promedio de espera: " + String.format("%.2f", promedio) + " minutos");
         });
 
-        // Acción para buscar cliente
+        
         btnBuscar.addActionListener(e -> {
             String criterio = buscarField.getText().trim();
             if (!criterio.isEmpty()) {
@@ -106,6 +103,11 @@ public class InterfazGrafica extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Ingrese un nombre o cédula para buscar.");
             }
+        });
+
+        
+        btnImportar.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Servicio Importado.");
         });
 
         setVisible(true);
@@ -126,6 +128,9 @@ public class InterfazGrafica extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new InterfazGrafica());
+        SwingUtilities.invokeLater(() -> {
+            JPanel panelCentro = new JPanel(new GridLayout(1, 2)); // ✅ Panel con layout definido
+            new InterfazGrafica(panelCentro);
+        });
     }
 }

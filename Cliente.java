@@ -3,7 +3,7 @@ public class Cliente {
     private String cedula;
     private String servicio;
 
-    public Cliente(String nombre, String cedula) {
+    public Cliente(String nombre, String cedula, String servicio1) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.servicio = servicio;

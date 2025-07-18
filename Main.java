@@ -19,14 +19,16 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Nombre: ");
-                    String nombre = sc.nextLine();
-                    System.out.print("Cedula: ");
-                    String cedula = sc.nextLine();
-                    System.out.print("Servicio: ");
-                    String servicio = sc.nextLine();
-                    cola.encolar(new Cliente(nombre, cedula));
-                    break;
+                 System.out.print("Nombre: ");
+                String nombre = sc.nextLine();
+                System.out.print("Cedula: ");
+                String cedula = sc.nextLine();
+                System.out.print("Servicio: ");
+                String servicio = sc.nextLine();
+               cola.encolar(new Cliente(nombre, cedula, servicio));
+               System.out.println("Servicio importado: " + nombre + " / cedula: " + cedula + " / servicio " + servicio); 
+               
+    break;
                 case 2:
                     Cliente atendido = cola.atenderCliente();
                     if (atendido != null)
