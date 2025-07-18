@@ -1,7 +1,16 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.List;
 import java.util.Map;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class InterfazGrafica extends JFrame {
     private ColaClientes cola = new ColaClientes();
@@ -12,7 +21,7 @@ public class InterfazGrafica extends JFrame {
     public InterfazGrafica() {
         setTitle("Atención al Cliente");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 500);
+        setSize(800, 600);
         setLayout(new BorderLayout());
 
         // Panel superior con formularios
@@ -30,6 +39,8 @@ public class InterfazGrafica extends JFrame {
         JButton btnAgregar = new JButton("Agregar Cliente");
         JButton btnAtender = new JButton("Atender Cliente");
         JButton btnImportar = new JButton("Importar Clientes");
+        JButton btnCategorizar = new JButton("Ordenar Cola por Tipo");
+        JButton btnEstadisticas = new JButton("Ver Estadísticas");
 
         panelIngreso.add(btnAgregar);
         panelIngreso.add(btnAtender);
@@ -40,9 +51,12 @@ public class InterfazGrafica extends JFrame {
         JPanel panelCentro = new JPanel(new BorderLayout());
 
         // Botón categorizar en la parte superior del centro
-        JButton btnCategorizar = new JButton("Ordenar Cola por Tipo");
-        panelCentro.add(btnCategorizar, BorderLayout.NORTH);
+        JPanel panelBotones = new JPanel(); // Por defecto usa FlowLayout (horizontal)
+        panelBotones.add(btnCategorizar);
+        panelBotones.add(btnEstadisticas);
 
+        // Agregar ese panel al norte del centro
+        panelCentro.add(panelBotones, BorderLayout.NORTH);
         // Área de texto con scroll en el centro del panel
         areaCola = new JTextArea(15, 50);
         areaCola.setEditable(false);
@@ -56,6 +70,7 @@ public class InterfazGrafica extends JFrame {
         labelAtendidos = new JLabel("Clientes atendidos: 0");
         panelInferior.add(labelAtendidos);
         panelInferior.add(btnImportar);
+          
         add(panelInferior, BorderLayout.SOUTH);
 
         // Acciones de botones
@@ -102,23 +117,25 @@ public class InterfazGrafica extends JFrame {
                 mostrarClientesPorTipoInterface();
             }
         });
+
+        btnEstadisticas.addActionListener(e -> {
+            String resultado = cola.generarEstadisticasASCII();
+            areaCola.setText(resultado);
+        });
     }
 
     private void mostrarClientesPorTipoInterface() {
         areaCola.setText("");
-
         Map<String, List<String>> agrupados = cola.dividirPorTipo();
 
         for (Map.Entry<String,List<String>> fila : agrupados.entrySet()){
-           areaCola.append("Tipo de servicio"+ fila.getKey());
+           areaCola.append("Tipo de servicio "+ fila.getKey());
 
             for (String valor : fila.getValue()) {
                 areaCola.append(" - "+ valor);
             }
             areaCola.append("\n");
         }
-        
-
     }
 
     private void actualizarVista() {

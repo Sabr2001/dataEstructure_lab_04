@@ -94,5 +94,41 @@ public class ColaClientes {
         }
     }
 
+    public String generarEstadisticasASCII() {
+        if (cola.isEmpty()) {
+            return "La cola está vacía.";
+        }
+
+        Map<String, Integer> conteo = new HashMap<>();
+        int totalClientes = 0;
+        for (Cliente cliente : cola) {
+            String tipo = cliente.getServicio();
+            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+            totalClientes++;
+        }
+
+        String servicioMasUsado = null;
+        int max = 0;
+        for (Map.Entry<String, Integer> entry : conteo.entrySet()) {
+            if (entry.getValue() > max) {
+                max = entry.getValue();
+                servicioMasUsado = entry.getKey();
+            }
+        }
+        // Construir salida ASCII
+        StringBuilder CuerpoReporte = new StringBuilder();
+        CuerpoReporte.append("📊 ESTADÍSTICAS DE LA COLA\n");
+        CuerpoReporte.append("--------------------------\n");
+        CuerpoReporte.append("Clientes atendidos: ").append(clientesAtendidos).append("\n");
+        CuerpoReporte.append("Servicio más solicitado: ").append(servicioMasUsado).append(" (").append(max).append(")\n\n");
+        CuerpoReporte.append("Distribución por servicio:\n");
+
+        for (Map.Entry<String, Integer> entry : conteo.entrySet()) {
+            CuerpoReporte.append(String.format("%-15s: %s (%d)\n", entry.getKey(), "#".repeat(entry.getValue()), entry.getValue()));
+        }
+
+        return CuerpoReporte.toString();
+    }
+
 }
  
