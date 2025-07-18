@@ -7,7 +7,7 @@ public static void main(String[] args) {
         int opcion;
 
         do {
-            System.out.println("\n--- Menú ---");
+            System.out.println("\n--- Menu ---");
             System.out.println("1. Agregar cliente");
             System.out.println("2. Atender cliente");
             System.out.println("3. Ver cola");
@@ -22,7 +22,7 @@ public static void main(String[] args) {
                 case 1:
                     System.out.print("Nombre: ");
                     String nombre = sc.nextLine();
-                    System.out.print("Cédula: ");
+                    System.out.print("Cedula: ");
                     String cedula = sc.nextLine();
                     System.out.print("Servicio: ");
                     String servicio = sc.nextLine();
@@ -37,7 +37,7 @@ public static void main(String[] args) {
                     break;
                 case 3:
                     if (cola.estaVacia()) {
-                        System.out.println("La cola está vacía.");
+                        System.out.println("La cola está vacia.");
                     } else {
                         System.out.println("Clientes en espera:");
                         for (String s : cola.obtenerColaComoTexto()) {

@@ -12,7 +12,7 @@ public class ColaClientes {
     private int clientesAtendidos;
 
     public ColaClientes() {
-        cola = new LinkedList<>(); //Crea la cola de clientes como lista enlazada
+        cola = new LinkedList<>(); //Crea la cola del cliente como lista enlazada
         clientesAtendidos = 0;
     }
 
@@ -22,10 +22,10 @@ public class ColaClientes {
 
     public Cliente atender() {
         if (!cola.isEmpty()) {
-            clientesAtendidos++; //suma en el contador el cliente atendido.
+            clientesAtendidos++; //suma en el contador y el cliente atendido.
             return cola.poll(); //vacia la cola
         }
-        return null; // si esta vacia retorna null
+        return null; // si esta vacia retorna al null
     }
 
     public ArrayList<String> obtenerColaComoTexto() {

@@ -34,12 +34,12 @@ public class InterfazGrafica extends JFrame {
 
         add(panelIngreso, BorderLayout.NORTH);
 
-        // Panel central con el área de cola
+        // Panel central con el área de la cola
         areaCola = new JTextArea(15, 50);
         areaCola.setEditable(false);
         add(new JScrollPane(areaCola), BorderLayout.CENTER);
 
-        // Panel inferior con contador
+        // Panel inferior con el contador
         JPanel panelInferior = new JPanel();
         labelAtendidos = new JLabel("Clientes atendidos: 0");
         panelInferior.add(labelAtendidos);
